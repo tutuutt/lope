@@ -1,86 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Growing Love Drawing</title>
-  <style>
-    body {
-      margin: 0;
-      background: #fff0f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    #container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    path {
-      fill: none;
-      stroke: red;
-      stroke-width: 1;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: draw 6s ease-in-out forwards;
-    }
-
-    @keyframes draw {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<div id="container"></div>
-
-<script>
-  let scale = 1;
-  const container = document.getElementById('container');
-
-  function drawLove() {
-    const svgNS = "http://www.w3.org/2000/svg";
-
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox", "0 0 100 100");
-    svg.style.width = `${300 * scale}px`;
-    svg.style.height = `${300 * scale}px`;
-
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", `
-      M 50 30
-      C 50 10, 90 10, 90 35
-      C 90 60, 50 80, 50 95
-      C 50 80, 10 60, 10 35
-      C 10 10, 50 10, 50 30
-    `);
-
-    svg.appendChild(path);
-    container.appendChild(svg);
-
-    scale += 0.2;
-
-    // Gambar love berikutnya setelah 6 detik (durasi animasi)
-    setTimeout(drawLove, 300000);
-  }
-
-  window.onload = drawLove;
-</script>
-
-</body>
+<html>
+  <head>
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello from GitHub Pages!</h1>
+  </body>
 </html>
