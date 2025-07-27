@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Message</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff0f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: visible;
+    }
+
+    path {
+      fill: none;
+      stroke: red;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 6s ease-in-out forwards;
+    }
+
+    text {
+      font-size: 8px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: darkred;
+      stroke: white;
+      stroke-width: 1px;
+      paint-order: stroke;
+      transform: scale(0);
+      transform-origin: 50% 52%;
+      opacity: 0;
+      animation: zoomText 2s ease-out forwards;
+      animation-delay: 1s;
+    }
+
+    .fade-out {
+      animation: fadeOut 1s ease forwards;
+    }
+
+    .fade-in {
+      animation: zoomText 2s ease-out forwards;
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes zoomText {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+  let scale = 1;
+  let count = 0;
+  const container = document.getElementById('container');
+
+  function drawLove() {
+    count++;
+
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.style.width = `${300 * scale}px`;
+    svg.style.height = `${300 * scale}px`;
+
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", `
+      M 50 30
+      C 50 10, 90 10, 90 35
+      C 90 60, 50 80, 50 95
+      C 50 80, 10 60, 10 35
+      C 10 10, 50 10, 50 30
+    `);
+
+    svg.appendChild(path);
+
+    if (count === 5) {
+      const text = document.createElementNS(svgNS, "text");
+      text.setAttribute("x", "50");
+      text.setAttribute("y", "52");
+      text.setAttribute("id", "text-jaehyun");
+      text.textContent = "I Love You Jaehyun";
+      svg.appendChild(text);
+
+      // Setelah 5 detik, ganti dengan teks baru
+      setTimeout(() => {
+        const oldText = document.getElementById("text-jaehyun");
+        if (oldText) {
+          oldText.classList.add("fade-out");
+
+          setTimeout(() => {
+            oldText.remove();
+
+            // Teks baru muncul
+            const newText = document.createElementNS(svgNS, "text");
+            newText.setAttribute("x", "50");
+            newText.setAttribute("y", "52");
+            newText.setAttribute("class", "fade-in");
+            newText.textContent = "Suka ko sama plastik 😂";
+            svg.appendChild(newText);
+          }, 1000); // waktu animasi fadeOut selesai
+        }
+      }, 5000);
+    }
+
+    container.appendChild(svg);
+    scale += 0.3;
+
+    if (count < 5) {
+      setTimeout(drawLove, 600);
+    }
+  }
+
+  window.onload = drawLove;
+</script>
+
+</body>
+</html>
