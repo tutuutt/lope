@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <title>Love Message</title>
@@ -31,7 +32,7 @@
     path {
       fill: none;
       stroke: red;
-      stroke-width: 2;
+      stroke-width: 1;
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-dasharray: 1000;
@@ -73,6 +74,7 @@
         transform: scale(0);
         opacity: 0;
       }
+
       100% {
         transform: scale(1.5);
         opacity: 1;
@@ -84,6 +86,7 @@
         opacity: 1;
         transform: scale(1.5);
       }
+
       100% {
         opacity: 0;
         transform: scale(0.8);
@@ -91,27 +94,28 @@
     }
   </style>
 </head>
+
 <body>
 
-<div id="container"></div>
+  <div id="container"></div>
 
-<script>
-  let scale = 1;
-  let count = 0;
-  const container = document.getElementById('container');
+  <script>
+    let scale = 1;
+    let count = 0;
+    const container = document.getElementById('container');
 
-  function drawLove() {
-    count++;
+    function drawLove() {
+      count++;
 
-    const svgNS = "http://www.w3.org/2000/svg";
+      const svgNS = "http://www.w3.org/2000/svg";
 
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox", "0 0 100 100");
-    svg.style.width = `${300 * scale}px`;
-    svg.style.height = `${300 * scale}px`;
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("viewBox", "0 0 100 100");
+      svg.style.width = `${300 * scale}px`;
+      svg.style.height = `${300 * scale}px`;
 
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", `
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", `
       M 50 30
       C 50 10, 90 10, 90 35
       C 90 60, 50 80, 50 95
@@ -119,47 +123,48 @@
       C 10 10, 50 10, 50 30
     `);
 
-    svg.appendChild(path);
+      svg.appendChild(path);
 
-    if (count === 5) {
-      const text = document.createElementNS(svgNS, "text");
-      text.setAttribute("x", "50");
-      text.setAttribute("y", "52");
-      text.setAttribute("id", "text-jaehyun");
-      text.textContent = "I Love You Jaehyun";
-      svg.appendChild(text);
+      if (count === 5) {
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttribute("x", "50");
+        text.setAttribute("y", "52");
+        text.setAttribute("id", "text-jaehyun");
+        text.textContent = "I Love You Jaehyun";
+        svg.appendChild(text);
 
-      // Setelah 5 detik, ganti dengan teks baru
-      setTimeout(() => {
-        const oldText = document.getElementById("text-jaehyun");
-        if (oldText) {
-          oldText.classList.add("fade-out");
+        // Setelah 5 detik, ganti dengan teks baru
+        setTimeout(() => {
+          const oldText = document.getElementById("text-jaehyun");
+          if (oldText) {
+            oldText.classList.add("fade-out");
 
-          setTimeout(() => {
-            oldText.remove();
+            setTimeout(() => {
+              oldText.remove();
 
-            // Teks baru muncul
-            const newText = document.createElementNS(svgNS, "text");
-            newText.setAttribute("x", "50");
-            newText.setAttribute("y", "52");
-            newText.setAttribute("class", "fade-in");
-            newText.textContent = "Suka ko sama plastik 😂";
-            svg.appendChild(newText);
-          }, 1000); // waktu animasi fadeOut selesai
-        }
-      }, 5000);
+              // Teks baru muncul
+              const newText = document.createElementNS(svgNS, "text");
+              newText.setAttribute("x", "50");
+              newText.setAttribute("y", "52");
+              newText.setAttribute("class", "fade-in");
+              newText.textContent = "Suka ko sama jaehyun 🙄";
+              svg.appendChild(newText);
+            }, 1000); // waktu animasi fadeOut selesai
+          }
+        }, 5000);
+      }
+
+      container.appendChild(svg);
+      scale += 0.2;
+
+      if (count < 10) {
+        setTimeout(drawLove, 3000);
+      }
     }
 
-    container.appendChild(svg);
-    scale += 0.3;
-
-    if (count < 5) {
-      setTimeout(drawLove, 600);
-    }
-  }
-
-  window.onload = drawLove;
-</script>
+    window.onload = drawLove;
+  </script>
 
 </body>
+
 </html>
